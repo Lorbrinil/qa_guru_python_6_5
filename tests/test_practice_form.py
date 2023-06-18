@@ -28,7 +28,8 @@ def test_student_registration_form():
     browser.element('[type="file"]').send_keys(os.path.abspath('resources/icon.jpg'))
 
     browser.element('[id="currentAddress"]').type('438 DARK SPURT SAN FRANCISCO CA 94528 USA')
-    browser.element('[id="state"]').perform(command.js.scroll_into_view).click()
+    #browser.element('[id="state"]').perform(command.js.scroll_into_view).click()
+    browser.element('[id="state"]').click()
     browser.element('[id="react-select-3-option-0"]').click()
     browser.element('[id="city"]').click()
     browser.element('[id="react-select-4-option-0"]').click()
