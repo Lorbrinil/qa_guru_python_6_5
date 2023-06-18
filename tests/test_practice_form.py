@@ -3,7 +3,7 @@ import os
 
 
 def test_student_registration_form():
-    browser.open('/')
+    browser.open('/automation-practice-form')
 
     browser.element('[id="firstName"]').type('StudentName')
     browser.element('[id="lastName"]').type('StudentName2')
