@@ -1,49 +1,38 @@
-from selene import browser, have, command
-import os
+from qa_guru_python_6_5.pages.registration_page import RegistrationPage
 
 
 def test_student_registration_form():
-    browser.open('/automation-practice-form')
 
-    browser.element('[id="firstName"]').type('StudentName')
-    browser.element('[id="lastName"]').type('StudentName2')
-    browser.element('[id="userEmail"]').type('name@ex.com')
+    registration_page = RegistrationPage()
+    registration_page.open()
 
-    browser.element('[id="gender-radio-2"]').with_(click_by_js=True).click()
+    (
+    registration_page
+        .fill_first_name('StudentName')
+        .fill_last_name('StudentName2')
+        .fill_user_email('name@ex.com')
+        .fill_gender('Female')
+        .fill_user_number('1234567890')
+        .fill_date_of_birth('1996', '12', '12')
+        .fill_subject('Physics')
+        .fill_hobby('Sports')
+        .fill_picture('icon.jpg')
+        .fill_address('438 DARK SPURT SAN FRANCISCO CA 94528 USA')
+        .fill_state('NCR')
+        .fill_city('Delhi')
+    )
 
-    browser.element('[id="userNumber"]').type('1234567890')
+    registration_page.submit_form()
 
-    browser.element('[id="dateOfBirthInput"]').click()
-    browser.element('[class="react-datepicker__month-select"]').click()
-    browser.element('[value="11"]').click()
-    browser.element('[class="react-datepicker__year-select"]').click()
-    browser.element('[value="1996"]').click()
-    browser.element('[class="react-datepicker__day react-datepicker__day--012"]').click()
-
-    browser.element('[id="subjectsInput"]').type('Ph')
-    browser.element('[id="react-select-2-option-0"]').click()
-
-    browser.element('[for="hobbies-checkbox-1"]').click()
-
-    browser.element('[type="file"]').send_keys(os.path.abspath('resources/icon.jpg'))
-
-    browser.element('[id="currentAddress"]').type('438 DARK SPURT SAN FRANCISCO CA 94528 USA')
-    #browser.element('[id="state"]').perform(command.js.scroll_into_view).click()
-    browser.element('[id="state"]').click()
-    browser.element('[id="react-select-3-option-0"]').click()
-    browser.element('[id="city"]').click()
-    browser.element('[id="react-select-4-option-0"]').click()
-
-    browser.element('[id = "submit"]').click()
-
-    browser.element('[id = example-modal-sizes-title-lg]').should(have.text('Thanks for submitting the form'))
-    browser.all('.table-responsive .table tbody > tr')[0].should(have.text('StudentName StudentName2'))
-    browser.all('.table-responsive .table tbody > tr')[1].should(have.text('name@ex.com'))
-    browser.all('.table-responsive .table tbody > tr')[2].should(have.text('Female'))
-    browser.all('.table-responsive .table tbody > tr')[3].should(have.text('1234567890'))
-    browser.all('.table-responsive .table tbody > tr')[4].should(have.text('12 December,1996'))
-    browser.all('.table-responsive .table tbody > tr')[5].should(have.text('Physics'))
-    browser.all('.table-responsive .table tbody > tr')[6].should(have.text('Sports'))
-    browser.all('.table-responsive .table tbody > tr')[7].should(have.text('icon.jpg'))
-    browser.all('.table-responsive .table tbody > tr')[8].should(have.text('438 DARK SPURT SAN FRANCISCO CA 94528 USA'))
-    browser.all('.table-responsive .table tbody > tr')[9].should(have.text('NCR Delhi'))
+    registration_page.should_registrated_user_with(
+        'StudentName StudentName2',
+        'name@ex.com',
+        'Female',
+        '1234567890',
+        '12 December,1996',
+        'Physics',
+        'Sports',
+        'icon.jpg',
+        '438 DARK SPURT SAN FRANCISCO CA 94528 USA',
+        'NCR Delhi'
+    )
