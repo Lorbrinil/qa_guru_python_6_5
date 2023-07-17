@@ -1,4 +1,4 @@
-from selene import browser, have
+from selene import browser, have, command
 from models.users import User
 from qa_guru_python_6_5 import resources
 
@@ -32,6 +32,8 @@ class RegistrationPage:
 
     def open(self):
         browser.open('/automation-practice-form')
+        browser.driver.execute_script("$('footer').remove()")
+        browser.driver.execute_script("$('#fixedban').remove()")
 
     def fill_date_of_birth(self, date):
         year = date.year
@@ -55,7 +57,7 @@ class RegistrationPage:
         return self
 
     def fill_state(self, value):
-        browser.element('[id="state"]').click()
+        browser.element('[id="state"]').perform(command.js.scroll_into_view).click()
         browser.all('[id^=react-select][id*=option]').element_by(have.exact_text(value)).click()
         return self
 
