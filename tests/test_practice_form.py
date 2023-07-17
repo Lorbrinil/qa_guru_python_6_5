@@ -2,8 +2,10 @@ from qa_guru_python_6_5.pages.registration_page import RegistrationPage
 import datetime
 from models.users import User
 from models.users import Hobby
+import allure
 
 
+@allure.title('Successful fill registration form')
 def test_student_registration_form():
 
     registration_page = RegistrationPage()
@@ -22,6 +24,11 @@ def test_student_registration_form():
         city='Delhi'
     )
 
-    registration_page.open()
-    registration_page.register(student)
-    registration_page.should_registrated_user_with(student)
+    with allure.step('Open registration form'):
+        registration_page.open()
+
+    with allure.step('Fill registration form'):
+        registration_page.register(student)
+
+    with allure.step('Check results'):
+        registration_page.should_registrated_user_with(student)
