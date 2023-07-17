@@ -1,6 +1,5 @@
 import os
 
-import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import pytest
@@ -24,7 +23,7 @@ def load_env():
     load_dotenv()
 
 
-@pytest.fixture(scope='function', autouse=True)
+@pytest.fixture(scope='function')
 def browser_management(request):
 
     browser.config.base_url = 'https://demoqa.com'
