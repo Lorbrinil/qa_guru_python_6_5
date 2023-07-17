@@ -9,6 +9,7 @@ import allure
 def test_student_registration_form(browser_management):
 
     registration_page = RegistrationPage()
+
     student = User(
         first_name='StudentName',
         last_name='StudentName2',

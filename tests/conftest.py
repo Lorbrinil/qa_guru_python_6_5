@@ -3,7 +3,7 @@ import os
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import pytest
-from selene import browser, Config
+from selene import browser
 from dotenv import load_dotenv
 
 from utils import attach
@@ -27,7 +27,8 @@ def load_env():
 def browser_management(request):
 
     browser.config.base_url = 'https://demoqa.com'
-    browser.config.driver.set_window_size(1920, 1080)
+    browser.config.window_width = 1920
+    browser.config.window_height = 1080
 
     browser_version = request.config.getoption('--browser_version')
     browser_version = browser_version if browser_version != "" else DEFAULT_BROWSER_VERSION
@@ -40,7 +41,6 @@ def browser_management(request):
             "enableVideo": True
         }
     }
-
     login = os.getenv('LOGIN')
     password = os.getenv('PASSWORD')
 
