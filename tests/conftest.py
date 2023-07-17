@@ -41,7 +41,6 @@ def browser_management(request):
             "enableVideo": True
         }
     }
-    options.capabilities.update(selenoid_capabilities)
 
     login = os.getenv('LOGIN')
     password = os.getenv('PASSWORD')

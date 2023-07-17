@@ -6,7 +6,7 @@ import allure
 
 
 @allure.title('Successful fill registration form')
-def test_student_registration_form():
+def test_student_registration_form(browser_management):
 
     registration_page = RegistrationPage()
     student = User(
