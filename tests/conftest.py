@@ -23,13 +23,8 @@ def load_env():
     load_dotenv()
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope='function', autouse=True)
 def browser_management(request):
-
-    browser.config.base_url = 'https://demoqa.com'
-    browser.config.window_width = 1920
-    browser.config.window_height = 1080
-
     browser_version = request.config.getoption('--browser_version')
     browser_version = browser_version if browser_version != "" else DEFAULT_BROWSER_VERSION
     options = Options()
@@ -50,6 +45,10 @@ def browser_management(request):
         options=options
     )
     browser.config.driver = driver
+
+    browser.config.base_url = 'https://demoqa.com'
+    browser.config.window_width = 1920
+    browser.config.window_height = 1080
 
     yield browser
 
